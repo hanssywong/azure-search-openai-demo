@@ -19,13 +19,13 @@ from lookuptool import CsvLookupTool
 class ReadRetrieveReadApproach(Approach):
 
     template_prefix = \
-"You are an intelligent assistant helping Contoso Inc employees with their healthcare plan questions and employee handbook questions. " \
+"You are an intelligent assistant helping customer with ChainStorePlus manual questions. " \
 "Answer the question using only the data provided in the information sources below. " \
 "For tabular information return it as an html table. Do not return markdown format. " \
 "Each source has a name followed by colon and the actual data, quote the source name for each piece of data you use in the response. " \
-"For example, if the question is \"What color is the sky?\" and one of the information sources says \"info123: the sky is blue whenever it's not cloudy\", then answer with \"The sky is blue [info123]\" " \
+"For example, if the question is \"What is The Best Price Automation?\" and one of the information sources says \"ChainStorePlus v7 BE_user_manual_r1.2_(Book-2)MASTERS-80.pdf: For System version v6.4.3 or later, the system has option set for Best Price Automation, in which the POS system will auto calculate and return with a “Best Price” result as default, plus option with manual override allowed\", then answer with \"For System version v6.4.3 or later, the system has option set for Best Price Automation, in which the POS system will auto calculate and return with a “Best Price” result as default, plus option with manual override allowed [ChainStorePlus v7 BE_user_manual_r1.2_(Book-2)MASTERS-80.pdf]\" " \
 "It's important to strictly follow the format where the name of the source is in square brackets at the end of the sentence, and only up to the prefix before the colon (\":\"). " \
-"If there are multiple sources, cite each one in their own square brackets. For example, use \"[info343][ref-76]\" and not \"[info343,ref-76]\". " \
+"If there are multiple sources, cite each one in their own square brackets. For example, use \"[ChainStorePlus v7 BE_user_manual_r1.2_(Book-2)MASTERS-80.pdf][ref-76]\" and not \"[ChainStorePlus v7 BE_user_manual_r1.2_(Book-2)MASTERS-80.pdf,ref-76]\". " \
 "Never quote tool names as sources." \
 "If you cannot answer using the sources below, say that you don't know. " \
 "\n\nYou can access to the following tools:"
@@ -37,7 +37,7 @@ Question: {input}
 
 Thought: {agent_scratchpad}"""    
 
-    CognitiveSearchToolDescription = "useful for searching the Microsoft employee benefits information such as healthcare plans, retirement plans, etc."
+    CognitiveSearchToolDescription = "useful for searching the ChainStorePlus manual."
 
     def __init__(self, search_client: SearchClient, openai_deployment: str, sourcepage_field: str, content_field: str):
         self.search_client = search_client
@@ -110,7 +110,7 @@ class EmployeeInfoTool(CsvLookupTool):
         super().__init__(filename="data/employeeinfo.csv", 
                          key_field="name", 
                          name="Employee", 
-                         description="useful for answering questions about the employee, their benefits and other personal information",
+                         description="useful for answering questions about the ChainStorePlus manual information",
                          callbacks=callbacks)
         self.func = self.employee_info
         self.employee_name = employee_name

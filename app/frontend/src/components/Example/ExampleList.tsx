@@ -9,10 +9,10 @@ export type ExampleModel = {
 
 const EXAMPLES: ExampleModel[] = [
     {
-        text: "What is ChainStorePlus?",
-        value: "What is ChainStorePlus?"
+        text: "List all modules with description",
+        value: "List all modules with description"
     },
-    { text: "What major system do chainstoreplus have?", value: "What major system do chainstoreplus have?" },
+    { text: "How to do Stock Transfer?", value: "How to do Stock Transfer?" },
     { text: "How to do promotion?", value: "How to do promotion?" }
 ];
 
