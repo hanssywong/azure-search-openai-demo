@@ -9,11 +9,17 @@ export type ExampleModel = {
 
 const EXAMPLES: ExampleModel[] = [
     {
-        text: "List all modules with description",
-        value: "List all modules with description"
+        text: "List modules with their descriptions, suggest follow-up questions",
+        value: "List modules with their descriptions, suggest follow-up questions"
     },
-    { text: "How to do Stock Transfer?", value: "How to do Stock Transfer?" },
-    { text: "How to do promotion?", value: "How to do promotion?" }
+    {
+        text: "Detailed explanation about receive stock",
+        value: "Detailed explanation about receive stock"
+    },
+    {
+        text: "Detailed explanation about promotion and discount methods",
+        value: "Detailed explanation about promotion and discount methods"
+    }
 ];
 
 interface Props {
