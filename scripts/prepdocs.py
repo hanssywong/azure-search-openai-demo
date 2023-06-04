@@ -112,6 +112,42 @@ def table_to_html(table):
     table_html += "</table>"
     return table_html
 
+def remove_unwanted_patterns(page_text, page_num):
+    # please count "+ Create a Modify & Delete @ View Copy" pattern in page_text and display the count
+    count = page_text.count("+ Create a Modify & Delete @ View Copy")
+    # display how many instances of "+ Create a Modify & Delete @ View Copy" pattern in page_text
+    if args.verbose: print(f"Page {page_num} has {count} instances of '+ Create a Modify & Delete @ View Copy'")
+    # if the count is more than 0, then do the remove pattern
+    if count > 0:
+        # remove "+ Create a Modify & Delete @ View Copy" pattern from page_text
+        page_text = page_text.replace("+ Create a Modify & Delete @ View Copy", "")
+        # display done remove message
+        if args.verbose: print(f"Page {page_num} has been cleaned up")
+                
+    # count "ERROR! BOOKMARK NOT DEFINED." pattern in page_text
+    count = page_text.count("ERROR! BOOKMARK NOT DEFINED.")
+    # display how many instances of "ERROR! BOOKMARK NOT DEFINED." pattern in page_text
+    if args.verbose: print(f"Page {page_num} has {count} instances of 'ERROR! BOOKMARK NOT DEFINED.'")
+    # if the count is more than 0, then do the remove pattern
+    if count > 0:
+        # remove "ERROR! BOOKMARK NOT DEFINED." pattern from page_text
+        page_text = page_text.replace("ERROR! BOOKMARK NOT DEFINED.", "")
+        # display done remove message
+        if args.verbose: print(f"Page {page_num} has been cleaned up (ERROR! BOOKMARK NOT DEFINED.)")
+        
+    # count "Create & Modify & Delete @ View & Copy" pattern in page_text
+    count = page_text.count("Create & Modify & Delete @ View & Copy")
+    # if the count is more than 0, then do the remove pattern
+    # display pattern count in page_text
+    if args.verbose: print(f"Page {page_num} has {count} instances of 'Create & Modify & Delete @ View & Copy'")
+    if count > 0:
+        # remove pattern from page_text
+        page_text = page_text.replace("Create & Modify & Delete @ View & Copy", "")
+        # display done remove message
+        if args.verbose: print(f"Page {page_num} has been cleaned up (Create & Modify & Delete @ View & Copy)")
+
+    return page_text
+    
 def get_document_text(filename):
     offset = 0
     page_map = []
@@ -120,6 +156,7 @@ def get_document_text(filename):
         pages = reader.pages
         for page_num, p in enumerate(pages):
             page_text = p.extract_text()
+            page_text = remove_unwanted_patterns(page_text, page_num)
             page_map.append((page_num, offset, page_text))
             offset += len(page_text)
     else:
@@ -155,6 +192,10 @@ def get_document_text(filename):
                     added_tables.add(table_id)
 
             page_text += " "
+
+            # remove some unwanted patterns from page_text
+            page_text = remove_unwanted_patterns(page_text, page_num)
+            
             page_map.append((page_num, offset, page_text))
             offset += len(page_text)
 
