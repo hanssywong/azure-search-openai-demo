@@ -5,6 +5,7 @@ import html
 import io
 import re
 import time
+import json
 from pypdf import PdfReader, PdfWriter
 from azure.identity import AzureDeveloperCliCredential
 from azure.core.credentials import AzureKeyCredential
@@ -157,6 +158,7 @@ def get_document_text(filename):
         for page_num, p in enumerate(pages):
             page_text = p.extract_text()
             page_text = remove_unwanted_patterns(page_text, page_num)
+            if args.verbose: print(f"page_num: {filename}, offset: {offset}, page_text: {page_text}")
             page_map.append((page_num, offset, page_text))
             offset += len(page_text)
     else:
@@ -352,5 +354,7 @@ else:
             if not args.skipblobs:
                 upload_blobs(filename)
             page_map = get_document_text(filename)
+            with open('page_map.json', 'w') as outfile:
+                json.dump(page_map, outfile)
             sections = create_sections(os.path.basename(filename), page_map)
             index_sections(os.path.basename(filename), sections)

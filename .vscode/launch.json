@@ -48,6 +48,19 @@
                 "build"
             ],
             "console": "integratedTerminal",
+        },
+        {
+            "name": "Python: File",
+            "type": "python",
+            "request": "launch",
+            "program": "${file}",
+            "console": "integratedTerminal",
+            "justMyCode": true,
+            "envFile": "${input:dotEnvFilePath}",
+            "args": [
+                "./data/*",
+                "-v"
+            ]
         }
     ],
     "inputs": [
